@@ -4,6 +4,7 @@ using Newtonsoft.Json;
 using Newshore.Viajes.Application.Exceptions;
 using System.Net;
 using System.Threading.Tasks;
+using Newshore.Viajes.Api.Controllers;
 
 namespace Newshore.Viajes.Api.Middleware
 {
@@ -13,17 +14,17 @@ namespace Newshore.Viajes.Api.Middleware
         private readonly RequestDelegate _next;
         private readonly ILogger _logger;
 
-        public ExceptionHandlerMiddleware(RequestDelegate next, ILoggerFactory logFactory)
+        public ExceptionHandlerMiddleware(RequestDelegate next, ILogger<ExceptionHandlerMiddleware> logger)
         {
             _next = next;
-            _logger = logFactory.CreateLogger("MyMiddleware");
+            _logger = logger;
         }
 
         public async Task Invoke(HttpContext httpContext)
         {
             try
             {
-                _logger.LogInformation("MyMiddleware executing..");
+                _logger.LogDebug("MyMiddleware executing..");
                 await _next(httpContext);
             }
             catch (Exception ex)
@@ -52,6 +53,10 @@ namespace Newshore.Viajes.Api.Middleware
                 case { } ex:
                     result = ex.Message;
                     break;
+            }
+            
+            if (result != string.Empty) {
+                _logger.LogError(result);
             }
 
             context.Response.StatusCode = (int)httpStatusCode;
