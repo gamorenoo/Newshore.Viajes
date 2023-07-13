@@ -61,15 +61,22 @@ namespace Newshore.Viajes.Business.Services
 
                     foundFlights.Add(otherFlight);
 
-                    if (otherFlight.Destination.Equals(request.Destination)) break;
+                    if (otherFlight.Destination.Equals(request.Destination))
+                    {
+                        notFoundRoute = false;
+                        break;
+                    }
                     iteratedFlights++;
                     originFlight = otherFlight;
+                    notFoundRoute = true;
                 }
 
             }
             else {
                 notFoundRoute = true;
             }
+
+            if (notFoundRoute) foundFlights = new List<Flight>();
 
             return foundFlights;
         }

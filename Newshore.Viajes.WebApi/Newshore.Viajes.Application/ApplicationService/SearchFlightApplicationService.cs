@@ -1,12 +1,8 @@
-﻿using Newshore.Viajes.Application.IApplicationService;
+﻿using Newshore.Viajes.Application.Exceptions;
+using Newshore.Viajes.Application.IApplicationService;
 using Newshore.Viajes.Business.IServices;
 using Newshore.Viajes.Model.DTO;
 using Newshore.Viajes.Model.Model;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Newshore.Viajes.Application.ApplicationService
 {
@@ -19,15 +15,36 @@ namespace Newshore.Viajes.Application.ApplicationService
 
         public async Task<Journey> SearchFlight(SearchDto request)
         {
+            validateRequestData(request);
+            var foundFlights = new Journey();
+            
             try
             {
-                return await _searchFlightService.SearchFlight(request);
+                foundFlights = await _searchFlightService.SearchFlight(request);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                return null;
+                Console.WriteLine(ex);
+            }
+
+            validateFoundFlights(foundFlights);
+
+            return foundFlights;
+        }
+
+        private void validateRequestData(SearchDto request)
+        {
+            if (string.IsNullOrWhiteSpace(request.Origin) || string.IsNullOrWhiteSpace(request.Destination)) {
+                throw new BadRequestException("Debe ingresar un origen y destino validos");
             }
         }
 
+        private void validateFoundFlights(Journey foundFlights)
+        {
+            if (!foundFlights.Flights.Any())
+            {
+                throw new NotFoundException("BuscarRutas", "No fue posible calcular la ruta con los parametros de busqueda ingresados");
+            }
+        }
     }
 }

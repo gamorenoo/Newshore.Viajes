@@ -1,3 +1,4 @@
+using Newshore.Viajes.Api.Middleware;
 using Newshore.Viajes.Application.ApplicationService;
 using Newshore.Viajes.Application.IApplicationService;
 using Newshore.Viajes.Business.IServices;
@@ -36,5 +37,7 @@ app.UseHttpsRedirection();
 app.UseAuthorization();
 
 app.MapControllers();
+
+app.UseMiddleware<ExceptionHandlerMiddleware>();
 
 app.Run();

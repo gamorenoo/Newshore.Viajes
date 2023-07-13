@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Newshore.Viajes.Application.Exceptions;
 using Newshore.Viajes.Application.IApplicationService;
 using Newshore.Viajes.Communications.IServices;
 using Newshore.Viajes.Model.DTO;
@@ -20,15 +21,10 @@ namespace Newshore.Viajes.Api.Controllers
             _searchFlightApplicationService = searchFlightApplicationService;
         }
 
-        //[HttpGet(Name = "Getflights")]
-        //public async Task<IEnumerable<FlightResponseDto>> Get()
-        //{
-        //    var flights = await _apiFlights.Getflights();
-        //    // var flights = result.AsQueryable().Select(FlightResponseDto.MapFlightResponseDtoToFlight).ToList();
-        //    return flights;
-        //}
-
         [HttpPost(Name = "SearchRoute")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ModelException), StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(typeof(ModelException), StatusCodes.Status404NotFound)]
         public async Task<Journey> Search(SearchDto request)
         {
             return await _searchFlightApplicationService.SearchFlight(request);
