@@ -5,13 +5,15 @@ VisualStudioVersion = 17.5.33530.505
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Newshore.Viajes.Api", "Newshore.Viajes.Api\Newshore.Viajes.Api.csproj", "{AB47C613-192C-4BC7-9F38-7638DB5FFFD1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Newshore.Viajes.Model", "Newshore.Viajes.Model\Newshore.Viajes.Model.csproj", "{2F725BE8-A19B-4D7C-BF33-D6EDB716E9BF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Newshore.Viajes.Model", "Newshore.Viajes.Model\Newshore.Viajes.Model.csproj", "{2F725BE8-A19B-4D7C-BF33-D6EDB716E9BF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Newshore.Viajes.Application", "Newshore.Viajes.Application\Newshore.Viajes.Application.csproj", "{629C1952-EB74-425D-89BF-361F6D4CE490}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Newshore.Viajes.Application", "Newshore.Viajes.Application\Newshore.Viajes.Application.csproj", "{629C1952-EB74-425D-89BF-361F6D4CE490}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Newshore.Viajes.Business", "Newshore.Viajes.Business\Newshore.Viajes.Business.csproj", "{156D3308-EBD2-405A-9B4E-84163707BFAF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Newshore.Viajes.Business", "Newshore.Viajes.Business\Newshore.Viajes.Business.csproj", "{156D3308-EBD2-405A-9B4E-84163707BFAF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Newshore.Viajes.Repository", "Newshore.Viajes.Repository\Newshore.Viajes.Repository.csproj", "{AD199FBD-5232-47EB-B851-9117CFF8F57B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Newshore.Viajes.Repository", "Newshore.Viajes.Repository\Newshore.Viajes.Repository.csproj", "{AD199FBD-5232-47EB-B851-9117CFF8F57B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Newshore.Viajes.Communications", "Newshore.Viajes.Communications\Newshore.Viajes.Communications.csproj", "{2902775A-E47C-406E-A1C0-FD879F08793C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,6 +41,10 @@ Global
 		{AD199FBD-5232-47EB-B851-9117CFF8F57B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AD199FBD-5232-47EB-B851-9117CFF8F57B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AD199FBD-5232-47EB-B851-9117CFF8F57B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2902775A-E47C-406E-A1C0-FD879F08793C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2902775A-E47C-406E-A1C0-FD879F08793C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2902775A-E47C-406E-A1C0-FD879F08793C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2902775A-E47C-406E-A1C0-FD879F08793C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

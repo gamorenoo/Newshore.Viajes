@@ -10,4 +10,12 @@
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.3" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Newshore.Viajes.Application\Newshore.Viajes.Application.csproj" />
+    <ProjectReference Include="..\Newshore.Viajes.Business\Newshore.Viajes.Business.csproj" />
+    <ProjectReference Include="..\Newshore.Viajes.Communications\Newshore.Viajes.Communications.csproj" />
+    <ProjectReference Include="..\Newshore.Viajes.Model\Newshore.Viajes.Model.csproj" />
+    <ProjectReference Include="..\Newshore.Viajes.Repository\Newshore.Viajes.Repository.csproj" />
+  </ItemGroup>
+
 </Project>
