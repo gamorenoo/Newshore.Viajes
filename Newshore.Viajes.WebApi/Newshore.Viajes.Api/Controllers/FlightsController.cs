@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Newshore.Viajes.Application.IApplicationService;
 using Newshore.Viajes.Communications.IServices;
 using Newshore.Viajes.Model.DTO;
 using Newshore.Viajes.Model.Model;
@@ -11,20 +12,26 @@ namespace Newshore.Viajes.Api.Controllers
     public class FlightsController : ControllerBase
     {
         private readonly ILogger<FlightsController> _logger;
-        private readonly IApiFlights _apiFlights;
+        private readonly ISearchFlightApplicationService _searchFlightApplicationService;
 
-        public FlightsController(ILogger<FlightsController> logger, IApiFlights apiFlights)
+        public FlightsController(ILogger<FlightsController> logger, ISearchFlightApplicationService searchFlightApplicationService)
         {
             _logger = logger;
-            _apiFlights = apiFlights;
+            _searchFlightApplicationService = searchFlightApplicationService;
         }
 
-        [HttpGet(Name = "Getflights")]
-        public async Task<IEnumerable<FlightResponseDto>> Get()
+        //[HttpGet(Name = "Getflights")]
+        //public async Task<IEnumerable<FlightResponseDto>> Get()
+        //{
+        //    var flights = await _apiFlights.Getflights();
+        //    // var flights = result.AsQueryable().Select(FlightResponseDto.MapFlightResponseDtoToFlight).ToList();
+        //    return flights;
+        //}
+
+        [HttpPost(Name = "SearchRoute")]
+        public async Task<Journey> Search(SearchDto request)
         {
-            var flights = await _apiFlights.Getflights();
-            // var flights = result.AsQueryable().Select(FlightResponseDto.MapFlightResponseDtoToFlight).ToList();
-            return flights;
+            return await _searchFlightApplicationService.SearchFlight(request);
         }
     }
 }
