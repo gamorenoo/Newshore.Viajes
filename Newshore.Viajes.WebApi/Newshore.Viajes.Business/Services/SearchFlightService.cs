@@ -2,6 +2,7 @@
 using Newshore.Viajes.Communications.IServices;
 using Newshore.Viajes.Model.DTO;
 using Newshore.Viajes.Model.Model;
+using Newshore.Viajes.Repository.IServices;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,9 +14,11 @@ namespace Newshore.Viajes.Business.Services
     public class SearchFlightService: ISearchFlightService
     {
         private readonly IApiFlightsService _apiFlights;
+        private readonly ISearchHistoryRespository _searchHistoryRespository;
         
-        public SearchFlightService(IApiFlightsService apiFlights) {
+        public SearchFlightService(IApiFlightsService apiFlights, ISearchHistoryRespository searchHistoryRespository) {
             _apiFlights = apiFlights;
+            _searchHistoryRespository = searchHistoryRespository;
         }
 
         public async Task<Journey> SearchFlight(SearchDto request)
@@ -29,6 +32,8 @@ namespace Newshore.Viajes.Business.Services
                 Flights = foundFlight,
                 Price = foundFlight.Sum(f => f.Price)
             };
+
+            SaveSearch(request);
 
             return journey;
         }
@@ -79,6 +84,22 @@ namespace Newshore.Viajes.Business.Services
             if (notFoundRoute) foundFlights = new List<Flight>();
 
             return foundFlights;
+        }
+
+        private async Task SaveSearch(SearchDto request)
+        {
+            SearchHistory searchHistory = new SearchHistory() { 
+                Origin = request.Origin,
+                Destination = request.Destination,
+                SearchDate = DateTime.Now
+            };
+
+            await _searchHistoryRespository.Save(searchHistory);
+        }
+
+        public async Task<IEnumerable<SearchHistory>> GetHistory()
+        {
+            return await _searchHistoryRespository.GetAll();
         }
     }
 }

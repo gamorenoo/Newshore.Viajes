@@ -8,7 +8,7 @@ using Newshore.Viajes.Model.Model;
 
 namespace Newshore.Viajes.Api.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/flights")]
     [ApiController]
     public class FlightsController : ControllerBase
     {
@@ -21,6 +21,11 @@ namespace Newshore.Viajes.Api.Controllers
             _searchFlightApplicationService = searchFlightApplicationService;
         }
 
+        /// <summary>
+        /// Buscar rutas de vuelos
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
         [HttpPost(Name = "SearchRoute")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ModelException), StatusCodes.Status400BadRequest)]
@@ -28,6 +33,17 @@ namespace Newshore.Viajes.Api.Controllers
         public async Task<Journey> Search(SearchDto request)
         {
             return await _searchFlightApplicationService.SearchFlight(request);
+        }
+
+        /// <summary>
+        /// Consultar listado de busquedas realizadas
+        /// </summary>
+        /// <returns></returns>
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [HttpGet(Name = "HistoriesSearch")]
+        public async Task<IEnumerable<SearchHistory>> Histories()
+        {
+            return await _searchFlightApplicationService.GetHistory();
         }
     }
 }

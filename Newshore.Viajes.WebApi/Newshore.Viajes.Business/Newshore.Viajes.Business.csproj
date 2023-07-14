@@ -9,6 +9,7 @@
   <ItemGroup>
     <ProjectReference Include="..\Newshore.Viajes.Communications\Newshore.Viajes.Communications.csproj" />
     <ProjectReference Include="..\Newshore.Viajes.Model\Newshore.Viajes.Model.csproj" />
+    <ProjectReference Include="..\Newshore.Viajes.Repository\Newshore.Viajes.Repository.csproj" />
   </ItemGroup>
 
 </Project>
