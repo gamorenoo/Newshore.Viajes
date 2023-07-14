@@ -12,9 +12,9 @@ namespace Newshore.Viajes.Business.Services
 {
     public class SearchFlightService: ISearchFlightService
     {
-        private readonly IApiFlights _apiFlights;
+        private readonly IApiFlightsService _apiFlights;
         
-        public SearchFlightService(IApiFlights apiFlights) {
+        public SearchFlightService(IApiFlightsService apiFlights) {
             _apiFlights = apiFlights;
         }
 

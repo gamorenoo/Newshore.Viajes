@@ -25,9 +25,13 @@ try
     builder.Services.AddEndpointsApiExplorer();
 
     // Agregar Servicios al contenedor de dependencias
-    builder.Services.AddTransient<IApiFlights, ApiFlights>();
+    builder.Services.AddTransient<IApiFlightsService, ApiFlightsService>();
+    builder.Services.Decorate<IApiFlightsService, CachedApiFlightsService>();
     builder.Services.AddTransient<ISearchFlightService, SearchFlightService>();
     builder.Services.AddTransient<ISearchFlightApplicationService, SearchFlightApplicationService>();
+
+    // In-Memory Caching
+    builder.Services.AddMemoryCache();
 
     builder.Services.AddSwaggerGen();
 
