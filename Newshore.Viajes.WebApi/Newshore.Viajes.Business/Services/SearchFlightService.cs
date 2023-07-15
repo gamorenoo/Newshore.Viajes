@@ -23,7 +23,7 @@ namespace Newshore.Viajes.Business.Services
 
         public async Task<Journey> SearchFlight(SearchDto request)
         {
-            var result = await _apiFlights.Getflights();
+            var result = await _apiFlights.GetFlights();
             var flights = result.AsQueryable().Select(FlightResponseDto.MapFlightResponseDtoToFlight).ToList();
             var foundFlight = GetFlights(flights, request);
             Journey journey = new Journey() { 

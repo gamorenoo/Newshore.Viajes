@@ -16,7 +16,7 @@ namespace Newshore.Viajes.Communications.Services
             _memoryCache = memoryCache;
         }
  
-        public async Task<List<FlightResponseDto>> Getflights() {
+        public async Task<List<FlightResponseDto>> GetFlights() {
             List<FlightResponseDto> flights = new List<FlightResponseDto>();
             HttpClient client = new HttpClient();
 

@@ -24,14 +24,14 @@ namespace Newshore.Viajes.Communications.Services
             _configuration = configuration;
         }
 
-        public async Task<List<FlightResponseDto>> Getflights()
+        public async Task<List<FlightResponseDto>> GetFlights()
         {
             var cacheOptions = getConfigCacheOptions();
 
             if (_memoryCache.TryGetValue(FlightsListCacheKey, out List<FlightResponseDto> query))
                 return query;
 
-            query = await _apiFlightsService.Getflights();
+            query = await _apiFlightsService.GetFlights();
 
             _memoryCache.Set(FlightsListCacheKey, query, cacheOptions);
 

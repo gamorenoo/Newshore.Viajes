@@ -9,6 +9,6 @@ namespace Newshore.Viajes.Communications.IServices
 {
     public interface IApiFlightsService
     {
-        Task<List<FlightResponseDto>> Getflights();
+        Task<List<FlightResponseDto>> GetFlights();
     }
 }

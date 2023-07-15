@@ -13,7 +13,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Newshore.Viajes.Business", 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Newshore.Viajes.Repository", "Newshore.Viajes.Repository\Newshore.Viajes.Repository.csproj", "{AD199FBD-5232-47EB-B851-9117CFF8F57B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Newshore.Viajes.Communications", "Newshore.Viajes.Communications\Newshore.Viajes.Communications.csproj", "{2902775A-E47C-406E-A1C0-FD879F08793C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Newshore.Viajes.Communications", "Newshore.Viajes.Communications\Newshore.Viajes.Communications.csproj", "{2902775A-E47C-406E-A1C0-FD879F08793C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Newshore.Viajes.UnitTest", "Newshore.Viajes.Test\Newshore.Viajes.UnitTest.csproj", "{DD270D47-1975-4997-8346-6C28B7C6BB65}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Test", "Test", "{ACFBC794-2027-4715-ADF6-1F850C24E61A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -45,9 +49,16 @@ Global
 		{2902775A-E47C-406E-A1C0-FD879F08793C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2902775A-E47C-406E-A1C0-FD879F08793C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2902775A-E47C-406E-A1C0-FD879F08793C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DD270D47-1975-4997-8346-6C28B7C6BB65}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DD270D47-1975-4997-8346-6C28B7C6BB65}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DD270D47-1975-4997-8346-6C28B7C6BB65}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DD270D47-1975-4997-8346-6C28B7C6BB65}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{DD270D47-1975-4997-8346-6C28B7C6BB65} = {ACFBC794-2027-4715-ADF6-1F850C24E61A}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {4D931FCB-230A-42CA-BB22-D0EA75BE772F}

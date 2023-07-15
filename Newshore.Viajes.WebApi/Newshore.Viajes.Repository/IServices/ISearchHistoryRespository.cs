@@ -9,7 +9,7 @@ namespace Newshore.Viajes.Repository.IServices
 {
     public interface ISearchHistoryRespository
     {
-        Task<SearchHistory> Save(SearchHistory mutant);
+        Task<SearchHistory> Save(SearchHistory searchHistory);
 
         Task<IEnumerable<SearchHistory>> GetAll();
     }
