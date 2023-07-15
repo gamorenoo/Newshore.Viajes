@@ -42,46 +42,39 @@ namespace Newshore.Viajes.Business.Services
         { 
             var foundFlights = new List<Flight>();
             bool foundRoute = false;
-            bool notFoundRoute = false;
             int iteratedFlights = 0;
 
-            var originFlight = flights.FirstOrDefault(f => f.Origin.Equals(request.Origin));
-            if (originFlight != null)
+            var previousFlight = new Flight();
+            foreach (var originFlight in flights.Where(f => f.Origin.Equals(request.Origin)))
             {
-                foundFlights.Add(originFlight);
+                previousFlight = originFlight;
+                foundFlights.Add(previousFlight);
                 // Si es un vuelo directo
-                if (originFlight.Destination.Equals(request.Destination))
+                if (previousFlight.Destination.Equals(request.Destination))
                     return foundFlights;
 
                 // Buscar el o los siguientes vuelos en la ruta
                 while (foundRoute || iteratedFlights <= flights.Count)
                 {
-                    var otherFlight = flights.FirstOrDefault(f => f.Origin.Equals(originFlight.Destination));
+                    var otherFlight = flights.FirstOrDefault(f => f.Origin.Equals(previousFlight.Destination));
 
                     if (otherFlight == null)
-                    {
-                        notFoundRoute = true;
                         break;
-                    }
 
                     foundFlights.Add(otherFlight);
 
                     if (otherFlight.Destination.Equals(request.Destination))
                     {
-                        notFoundRoute = false;
+                        foundRoute = true;
                         break;
                     }
                     iteratedFlights++;
-                    originFlight = otherFlight;
-                    notFoundRoute = true;
+                    previousFlight = otherFlight;
                 }
-
+                if (!foundRoute)
+                    foundFlights = new List<Flight>();
+                else break;
             }
-            else {
-                notFoundRoute = true;
-            }
-
-            if (notFoundRoute) foundFlights = new List<Flight>();
 
             return foundFlights;
         }

@@ -58,7 +58,15 @@ try
     {
         loggerConfiguration.ReadFrom.Configuration(context.Configuration);
     });
-
+    builder.Services.AddCors(opt =>
+    {
+        opt.AddPolicy("Default_CorsPolicy", o =>
+        {
+            o.AllowAnyHeader();
+            o.AllowAnyMethod();
+            o.AllowAnyOrigin();
+        });
+    });
     var app = builder.Build();
 
     // Configure the HTTP request pipeline.
@@ -67,6 +75,7 @@ try
         app.UseSwagger();
         app.UseSwaggerUI();
     }
+    app.UseCors("Default_CorsPolicy");
 
     app.UseHttpsRedirection();
 
