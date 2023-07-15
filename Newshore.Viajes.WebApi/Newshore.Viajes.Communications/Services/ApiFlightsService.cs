@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using Microsoft.Extensions.Caching.Memory;
+using Microsoft.Extensions.Configuration;
 using Newshore.Viajes.Communications.IServices;
 using Newshore.Viajes.Model.DTO;
 using System.IO;
@@ -6,14 +7,16 @@ using System.Net.Http.Json;
 
 namespace Newshore.Viajes.Communications.Services
 {
-    public class ApiFlights: IApiFlights
+    public class ApiFlightsService: IApiFlightsService
     {
         private readonly IConfiguration _configuration;
-        public ApiFlights(IConfiguration configuration) {
+        private readonly IMemoryCache _memoryCache;
+        public ApiFlightsService(IConfiguration configuration, IMemoryCache memoryCache) {
             _configuration = configuration;
+            _memoryCache = memoryCache;
         }
  
-        public async Task<List<FlightResponseDto>> Getflights() {
+        public async Task<List<FlightResponseDto>> GetFlights() {
             List<FlightResponseDto> flights = new List<FlightResponseDto>();
             HttpClient client = new HttpClient();
 

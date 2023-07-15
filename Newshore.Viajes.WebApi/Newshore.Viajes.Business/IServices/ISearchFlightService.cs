@@ -11,5 +11,7 @@ namespace Newshore.Viajes.Business.IServices
     public interface ISearchFlightService
     {
         Task<Journey> SearchFlight(SearchDto request);
+
+        Task<IEnumerable<SearchHistory>> GetHistory();
     }
 }

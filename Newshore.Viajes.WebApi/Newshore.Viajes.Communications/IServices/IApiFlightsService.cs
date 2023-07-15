@@ -7,8 +7,8 @@ using System.Threading.Tasks;
 
 namespace Newshore.Viajes.Communications.IServices
 {
-    public interface IApiFlights
+    public interface IApiFlightsService
     {
-        Task<List<FlightResponseDto>> Getflights();
+        Task<List<FlightResponseDto>> GetFlights();
     }
 }

@@ -46,5 +46,21 @@ namespace Newshore.Viajes.Application.ApplicationService
                 throw new NotFoundException("BuscarRutas", "No fue posible calcular la ruta con los parametros de busqueda ingresados");
             }
         }
+
+        public async Task<IEnumerable<SearchHistory>> GetHistory()
+        {
+            var historySearch = new List<SearchHistory>();
+            try
+            {
+                var result = await _searchFlightService.GetHistory();
+                historySearch = result.ToList();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex);
+            }
+
+            return historySearch;
+        }
     }
 }

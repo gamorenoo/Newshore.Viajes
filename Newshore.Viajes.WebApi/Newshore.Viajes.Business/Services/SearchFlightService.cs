@@ -2,6 +2,7 @@
 using Newshore.Viajes.Communications.IServices;
 using Newshore.Viajes.Model.DTO;
 using Newshore.Viajes.Model.Model;
+using Newshore.Viajes.Repository.IServices;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,15 +13,17 @@ namespace Newshore.Viajes.Business.Services
 {
     public class SearchFlightService: ISearchFlightService
     {
-        private readonly IApiFlights _apiFlights;
+        private readonly IApiFlightsService _apiFlights;
+        private readonly ISearchHistoryRespository _searchHistoryRespository;
         
-        public SearchFlightService(IApiFlights apiFlights) {
+        public SearchFlightService(IApiFlightsService apiFlights, ISearchHistoryRespository searchHistoryRespository) {
             _apiFlights = apiFlights;
+            _searchHistoryRespository = searchHistoryRespository;
         }
 
         public async Task<Journey> SearchFlight(SearchDto request)
         {
-            var result = await _apiFlights.Getflights();
+            var result = await _apiFlights.GetFlights();
             var flights = result.AsQueryable().Select(FlightResponseDto.MapFlightResponseDtoToFlight).ToList();
             var foundFlight = GetFlights(flights, request);
             Journey journey = new Journey() { 
@@ -30,6 +33,8 @@ namespace Newshore.Viajes.Business.Services
                 Price = foundFlight.Sum(f => f.Price)
             };
 
+            SaveSearch(request);
+
             return journey;
         }
 
@@ -37,48 +42,57 @@ namespace Newshore.Viajes.Business.Services
         { 
             var foundFlights = new List<Flight>();
             bool foundRoute = false;
-            bool notFoundRoute = false;
             int iteratedFlights = 0;
 
-            var originFlight = flights.FirstOrDefault(f => f.Origin.Equals(request.Origin));
-            if (originFlight != null)
+            var previousFlight = new Flight();
+            foreach (var originFlight in flights.Where(f => f.Origin.Equals(request.Origin)))
             {
-                foundFlights.Add(originFlight);
+                previousFlight = originFlight;
+                foundFlights.Add(previousFlight);
                 // Si es un vuelo directo
-                if (originFlight.Destination.Equals(request.Destination))
+                if (previousFlight.Destination.Equals(request.Destination))
                     return foundFlights;
 
                 // Buscar el o los siguientes vuelos en la ruta
                 while (foundRoute || iteratedFlights <= flights.Count)
                 {
-                    var otherFlight = flights.FirstOrDefault(f => f.Origin.Equals(originFlight.Destination));
+                    var otherFlight = flights.FirstOrDefault(f => f.Origin.Equals(previousFlight.Destination));
 
                     if (otherFlight == null)
-                    {
-                        notFoundRoute = true;
                         break;
-                    }
 
                     foundFlights.Add(otherFlight);
 
                     if (otherFlight.Destination.Equals(request.Destination))
                     {
-                        notFoundRoute = false;
+                        foundRoute = true;
                         break;
                     }
                     iteratedFlights++;
-                    originFlight = otherFlight;
-                    notFoundRoute = true;
+                    previousFlight = otherFlight;
                 }
-
+                if (!foundRoute)
+                    foundFlights = new List<Flight>();
+                else break;
             }
-            else {
-                notFoundRoute = true;
-            }
-
-            if (notFoundRoute) foundFlights = new List<Flight>();
 
             return foundFlights;
+        }
+
+        private async Task SaveSearch(SearchDto request)
+        {
+            SearchHistory searchHistory = new SearchHistory() { 
+                Origin = request.Origin,
+                Destination = request.Destination,
+                SearchDate = DateTime.Now
+            };
+
+            await _searchHistoryRespository.Save(searchHistory);
+        }
+
+        public async Task<IEnumerable<SearchHistory>> GetHistory()
+        {
+            return await _searchHistoryRespository.GetAll();
         }
     }
 }
