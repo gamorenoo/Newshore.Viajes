@@ -54,7 +54,7 @@ Para ejecutar el proyecto de forma local, se debe, realizar los siguientes pasos
 
 ## 3. Arquitectura 
 ### Principales requerimientos no funcionales
-- Dosponibilidad
+- Disponibilidad
 - Testeabilidad
 - Mantenibilidad
 
